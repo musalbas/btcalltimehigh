@@ -9,8 +9,10 @@ try:
 except ImportError:
     import json
 
+import math
 import urllib
 import web
+
 
 class PricePoller:
     """
@@ -43,12 +45,13 @@ class PricePoller:
         for market in markets_data:
             if markets_data['high'] > self.get_all_time_high():
             # New high, update self.price_history
-            self._update_high(markets_data['high'], markets_data['symbol'],
-                              time.time())
+                self._update_high(markets_data['high'], markets_data['symbol'],
+                                  time.time())
 
-    def _update_high(price, symbol, time):
+    def _update_high(self, price, symbol, time):
         """Update self.price_history with a new all time high price. This works
-        such that there is a maximum of one all time high price item per day."""
+        such that there is a maximum of one all time high price item per
+        day."""
         # Delete the current all time high price in self.price_history if it
         # was reached on the same day as the new all time high price
         day_seconds = 60 * 60 * 24
@@ -63,6 +66,7 @@ class PricePoller:
     def get_all_time_high(self):
         """Return the current all time high price."""
         return max(self.price_history.keys(), key=int)
+
 
 class homepage:
     """Website homepage. Called by the web.py framework."""
