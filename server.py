@@ -1,7 +1,12 @@
 """A web application that records and displays the current and historic Bitcoin
 all time high prices."""
 
+# Configure CherryPy web server here
+CHERRYPY_CONFIG = {'server.socket_host': "127.0.0.1",
+                   'server.socket_port': 80}
+
 import cherrypy
+import datetime
 import thread
 import time
 
@@ -18,12 +23,52 @@ import urllib
 class WebApp(object):
     """CherryPy web application."""
 
-    def __init__(self, pricepoller):
-        self.pricepoller = pricepoller
+    time_format = "%d %b %Y %H:%M"
+
+    def __init__(self, pricepoller, index_template_file):
+        self._pricepoller = pricepoller
+
+        # Read index template
+        file_handle = open(index_template_file, 'r')
+        self._index_template = file_handle.read()
+        file_handle.close()
 
     def index(self):
         """Handle requests to / (main page)."""
-        return self.pricepoller.get_all_time_high()
+        out = self._index_template
+
+        # Get the current all time high price, market symbol and time
+        all_time_high_price = self._pricepoller.get_all_time_high_price()
+        all_time_high = self._pricepoller.price_history[all_time_high_price]
+        all_time_high_symbol = all_time_high[0]
+        all_time_high_time = all_time_high[1]
+        all_time_high_time = datetime.datetime.fromtimestamp(all_time_high_time
+                                                             )
+        all_time_high_time = all_time_high_time.strftime(self.time_format)
+
+        # Template in the current all time high price and time
+        out = out.replace("{all_time_high_price}", str(all_time_high_price))
+        out = out.replace("{all_time_high_symbol}", all_time_high_symbol)
+        out = out.replace("{all_time_high_time}", all_time_high_time)
+
+        # Build table of historic all time high prices
+        prices_table = ""
+        prices = sorted(self._pricepoller.price_history.keys(), reverse=True,
+                        key=float)
+        for price in prices:
+            item = self._pricepoller.price_history[price]
+            symbol = item[0]
+            time_string = datetime.datetime.fromtimestamp(item[1])
+            time_string = time_string.strftime(self.time_format)
+            prices_table += "<tr>"
+            prices_table += "<td>" + str(price) + "</td>"
+            prices_table += "<td>" + time_string + "</td>"
+            prices_table += "<td>" + symbol + "</td>"
+            prices_table += "</tr>"
+        out = out.replace("{all_time_high_prices_table}", prices_table)
+
+        return out
+
     index.exposed = True
 
 
@@ -68,11 +113,11 @@ class PricePoller:
         # dictionary if it was reached on the same day as the new all time high
         # price
         day_seconds = 60 * 60 * 24
-        current_all_time_high = self.get_all_time_high()
-        if (current_all_time_high != -1 and
-            self.price_history[current_all_time_high][1]
+        current_all_time_high_price = self.get_all_time_high_price()
+        if (current_all_time_high_price != -1 and
+            self.price_history[current_all_time_high_price][1]
             > math.floor(time.time() / day_seconds) * day_seconds):
-            del self.price_history[current_all_time_high]
+            del self.price_history[current_all_time_high_price]
 
         # Add the price item to price history dictionary
         self.price_history[price] = (symbol, unixtime)
@@ -80,7 +125,7 @@ class PricePoller:
         # Save the updated price history dictionary to the data file
         self._save()
 
-    def get_all_time_high(self):
+    def get_all_time_high_price(self):
         """Return the current all time high price."""
         try:
             return max(self.price_history.keys(), key=float)
@@ -98,7 +143,7 @@ class PricePoller:
         # price has been reached, by looking at each market's highest trade
         # during the day
         for market in markets_data:
-            if (market['high'] > self.get_all_time_high()
+            if (market['high'] > float(self.get_all_time_high_price())
                 and "USD" in market['symbol']
                 and market['symbol'] != "localbtcUSD"):
                 # New high, update price history dictionary
@@ -120,5 +165,5 @@ if __name__ == "__main__":
     thread.start_new_thread(pricepoller.run, ())
 
     # Start the CherryPy server
-    cherrypy.server.socket_port = 80
-    cherrypy.quickstart(WebApp(pricepoller))
+    cherrypy.config.update(CHERRYPY_CONFIG)
+    cherrypy.quickstart(WebApp(pricepoller, "Default.html"))
