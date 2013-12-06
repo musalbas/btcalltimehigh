@@ -1,6 +1,7 @@
-"""Web server which displays the Bitcoin all time high prices on USD
-markets."""
+"""A web application that records and displays the current and historic Bitcoin
+all time high prices."""
 
+import cherrypy
 import thread
 import time
 
@@ -12,7 +13,18 @@ except ImportError:
 import math
 import os
 import urllib
-import web
+
+
+class WebApp(object):
+    """CherryPy web application."""
+
+    def __init__(self, pricepoller):
+        self.pricepoller = pricepoller
+
+    def index(self):
+        """Handle requests to / (main page)."""
+        return self.pricepoller.get_all_time_high()
+    index.exposed = True
 
 
 class PricePoller:
@@ -99,20 +111,6 @@ class PricePoller:
             self.poll()
             time.sleep(self._interval)
 
-
-class homepage:
-    """Website homepage. Called by the web.py framework."""
-
-    def GET(self):
-        """Handle GET requests."""
-        return pricepoller.get_all_time_high()
-        return "sup?"
-
-# Setup web.py URL mapping
-urls = (
-    '/', 'homepage',
-)
-
 # Start the application
 if __name__ == "__main__":
     # Start the price poller in a separate thread
@@ -121,6 +119,6 @@ if __name__ == "__main__":
     pricepoller = PricePoller(pricepoller_data_file)
     thread.start_new_thread(pricepoller.run, ())
 
-    # Start the web.py application
-    app = web.application(urls, globals())
-    app.run()
+    # Start the CherryPy server
+    cherrypy.server.socket_port = 80
+    cherrypy.quickstart(WebApp(pricepoller))
