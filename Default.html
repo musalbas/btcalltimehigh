@@ -116,14 +116,14 @@ th {
 	Bitcoin All Time High Price
 </div>
 <div class = "price">
-	{all_time_high_price} 
+	${all_time_high_price} 
 </div>
 </br>
 <div class = "symbol">
 	{all_time_high_symbol}
 </div>
 <div class = "timestamp">
-	 {all_time_high_datetime} 
+	 {all_time_high_time} 
 </div>
 <!-- TODO Add timestamp under price -->
 
@@ -141,12 +141,10 @@ th {
 		<th>Date</th>
 		<th>Market</th>
 	</tr>
-	<tr>
-		<td> </td>
-		<td> </td>
-		<td> </td>
-	</tr>
+	{all_time_high_prices_table}
 </table>
+<div class = "separator">
+</div>
 <div class = "placeholder">
 	<div class = "author">
 		Made by: <a href="https://twitter.com/Fares_Alaboud">@Fares_Alaboud</a> (fReztek) & <a href="https://twitter.com/musalbas">@musalbas</a>
