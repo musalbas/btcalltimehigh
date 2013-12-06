@@ -1,11 +1,8 @@
 """A web application that records and displays the current and historic Bitcoin
 all time high prices."""
 
-# Configure CherryPy web server here
-CHERRYPY_CONFIG = {'server.socket_host': "127.0.0.1",
-                   'server.socket_port': 80}
-
 import cherrypy
+from config import CHERRYPY_CONFIG
 import datetime
 import thread
 import time
@@ -47,7 +44,8 @@ class WebApp(object):
         all_time_high_time = all_time_high_time.strftime(self.time_format)
 
         # Template in the current all time high price and time
-        out = out.replace("{all_time_high_price}", str(all_time_high_price))
+        out = out.replace("{all_time_high_price}",
+                          str(int(float(all_time_high_price))))
         out = out.replace("{all_time_high_symbol}", all_time_high_symbol)
         out = out.replace("{all_time_high_time}", all_time_high_time)
 
@@ -61,7 +59,7 @@ class WebApp(object):
             time_string = datetime.datetime.fromtimestamp(item[1])
             time_string = time_string.strftime(self.time_format)
             prices_table += "<tr>"
-            prices_table += "<td>" + str(price) + "</td>"
+            prices_table += "<td>$" + str(int(float(price))) + "</td>"
             prices_table += "<td>" + time_string + "</td>"
             prices_table += "<td>" + symbol + "</td>"
             prices_table += "</tr>"
