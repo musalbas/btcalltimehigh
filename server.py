@@ -162,6 +162,14 @@ if __name__ == "__main__":
     pricepoller = PricePoller(pricepoller_data_file)
     thread.start_new_thread(pricepoller.run, ())
 
+    # Create web application instance
+    webapp = WebApp(pricepoller, "Default.html")
+
+    # Configure favicon.ico
+    favicon_filename = os.path.join(module_dirname, "favicon.ico")
+    favicon_ico = cherrypy.tools.staticfile.handler(filename=favicon_filename)
+    webapp.favicon_ico = favicon_ico
+
     # Start the CherryPy server
     cherrypy.config.update(CHERRYPY_CONFIG)
-    cherrypy.quickstart(WebApp(pricepoller, "Default.html"))
+    cherrypy.quickstart(webapp)
