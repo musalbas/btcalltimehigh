@@ -1,5 +1,5 @@
 # Merge all of the trade data CSV files in the csvs directory into a single MySQL table (table 'trades' in mysql://btcalltimehigh@localhost/btcalltimehigh).
-mysql -u btcalltimehigh -e "USE btcalltimehigh; DROP TABLE trades;" > /dev/null
+mysql -u btcalltimehigh -e "USE btcalltimehigh; DROP TABLE trades;" > /dev/null 2>&1
 mysql -u btcalltimehigh -e "USE btcalltimehigh; CREATE TABLE trades(id INT NOT NULL AUTO_INCREMENT, time INT NOT NULL, price FLOAT NOT NULL, volume FLOAT NOT NULL, market VARCHAR(12) NOT NULL, PRIMARY KEY(id));"
 
 for f in $(find csvs -name "*.csv")
