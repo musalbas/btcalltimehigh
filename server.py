@@ -45,7 +45,7 @@ class WebApp(object):
 
         # Template in the current all time high price and time
         out = out.replace("{all_time_high_price}",
-                          "{0:.2f}".format(float(all_time_high_price)))
+                          "${0:.2f}".format(float(all_time_high_price)))
         out = out.replace("{all_time_high_symbol}", all_time_high_symbol)
         out = out.replace("{all_time_high_time}", all_time_high_time)
 

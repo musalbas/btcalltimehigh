@@ -1,157 +1,146 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+<!DOCTYPE html>
+
 <html>
-<meta name="viewport" content="width=device-width, initial-scale=0.6, user-scalable=yes">
-<title> BTC All Time High Price </title>
-<style type="text/css">
-body {
-	background-color: #FFFFFF;
-}
-.price {
-	margin: 0 auto;
-	color: #000080;
-	font-size: 56px;
-	text-align: center;
-	font-family: Arial;
-	width: 500px;
-}
-.head {
-	width: 500px;
-	margin: 0 auto;
-	color: #000000;
-	font-size: 35px;
-	text-align: center;
-	font-family: Arial;
-}
-.separator {
-    clear: both;
-    display: block;
-    height: 50px;
-}
-.update {
-	font-size: 15px;
-    text-align: center;
-    font-family: Arial;
-    margin: 0 auto;
-}
-table {
-    margin: 0 auto;
-    background-color: #FFFFFF;
-    width: 500px; 
-    padding: 3px;
-    border-spacing: 3px;
-    border-color: #FFCC00;
-    border-width: 1px;
-    text-align: center;
-    table-layout: fixed;
-    font-family: Arial;
-}
-th {
-	border-bottom: 1px solid black;
-}
-.timestamp {
-	color: #C0C0C0;
-	font-size: 10px;
-	text-align: center;
-	font-family: Arial;
-	margin: 0 auto;
-}
-.symbol {
-	color: #A0A0A0;
-	font-size: 14px;
-	text-align: center;
-	font-family: Arial;
-	margin: 0 auto;
-}
-.placeholder {
-	width: 500px;
-	text-align: center;
-	margin: 0 auto;
-}
-.author {
-	color: black;
-	font-size: 10px;
-	text-align: right;
-	font-family: Arial;
-	float: right;
-}
-.donate {
-	color: #A0A0A0;
-	font-size: 10px;
-	text-align: left;
-	font-family: Arial;
-	float: left;
-}
-</style>
-<style type="text/css">
 
-</style>
-<body>
+    <head>
 
-<!-- <div class = "timestamp">
-	Date and Time of Page Load: 
-	<script type="text/javascript">
-	var currentDate = new Date()
-	var day = currentDate.getDate()
-	var month = currentDate.getMonth() + 1
-	var year = currentDate.getFullYear()
-	document.write("<b>" + day + "/" + month + "/" + year + "</b>    ")
-	var currentTime = new Date()
-	var hours = currentTime.getHours()
-	var minutes = currentTime.getMinutes()
+        <meta name="viewport" content="width=device-width, initial-scale=0.6, user-scalable=yes">
+        <title>{all_time_high_price} - Bitcoin All Time High Price</title>
 
-	if (minutes < 10)
-	minutes = "0" + minutes
+        <style type="text/css">
+            body {
+                background-color: #FFFFFF;
+            }
+            .price {
+                margin: 0 auto;
+                color: #000080;
+                font-size: 56px;
+                text-align: center;
+                font-family: Arial;
+                width: 500px;
+            }
+            .head {
+                width: 500px;
+                margin: 0 auto;
+                color: #000000;
+                font-size: 35px;
+                text-align: center;
+                font-family: Arial;
+            }
+            .separator {
+                clear: both;
+                display: block;
+                height: 50px;
+            }
+            .update {
+                font-size: 15px;
+                text-align: center;
+                font-family: Arial;
+                margin: 0 auto;
+            }
+            table {
+                margin: 0 auto;
+                background-color: #FFFFFF;
+                width: 500px;
+                padding: 3px;
+                border-spacing: 3px;
+                border-color: #FFCC00;
+                border-width: 1px;
+                text-align: center;
+                table-layout: fixed;
+                font-family: Arial;
+            }
+            th {
+                border-bottom: 1px solid black;
+            }
+            .timestamp {
+                color: #C0C0C0;
+                font-size: 10px;
+                text-align: center;
+                font-family: Arial;
+                margin: 0 auto;
+            }
+            .symbol {
+                color: #A0A0A0;
+                font-size: 14px;
+                text-align: center;
+                font-family: Arial;
+                margin: 0 auto;
+            }
+            .placeholder {
+                width: 500px;
+                text-align: center;
+                margin: 0 auto;
+            }
+            .author {
+                color: black;
+                font-size: 10px;
+                text-align: right;
+                font-family: Arial;
+                float: right;
+            }
+            .donate {
+                color: #A0A0A0;
+                font-size: 10px;
+                text-align: left;
+                font-family: Arial;
+                float: left;
+            }
+        </style>
 
-	document.write("<b>" + hours + ":" + minutes + " " + "</b>")
-	</script>
-	</div>
-	//-->
+    </head>
 
-<div class = "separator">
-</div>
-<div class = "separator">
-</div>
+    <body>
 
-<div class = "head">
-	Bitcoin All Time High Price
-</div>
-<div class = "price">
-	${all_time_high_price} 
-</div>
-</br>
-<div class = "symbol">
-	{all_time_high_symbol}
-</div>
-<div class = "timestamp">
-	 {all_time_high_time} 
-</div>
-<!-- TODO Add timestamp under price -->
+        <a href="https://github.com/musalbas/btcalltimehigh" target="_blank"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
 
-<div class = "separator">
-</div>
-<div class = "update">
-	Automatically updated every 15 minutes.
-</div>
-<div class = "separator">
-</div>
+        <div class="separator"></div>
+        <div class="separator"></div>
 
-<table>
-	<tr id = "heading">
-		<th>All Time High Price</th>
-		<th>Date</th>
-		<th>Market</th>
-	</tr>
-	{all_time_high_prices_table}
-</table>
-<div class = "separator">
-</div>
-<div class = "placeholder">
-	<div class = "author">
-		Made by: <a href="https://twitter.com/Fares_Alaboud">@Fares_Alaboud</a> (fReztek) & <a href="https://twitter.com/musalbas">@musalbas</a>
-	</div>
-	<div class = "donate">
-		Donate: 1DQRBzK8nPBiej5p1edCKSjAstjdnzq23c
-	</div>
-</div>
-</body>
+        <div class="head">
+            Bitcoin All Time High Price
+        </div>
+        <div class="price">
+            {all_time_high_price}
+        </div>
+        <br />
+        <div class="symbol">
+            {all_time_high_symbol}
+        </div>
+        <div class="timestamp">
+            {all_time_high_time}
+        </div>
+
+        <div class="separator"></div>
+
+        <div class="update">
+            Automatically updated every 15 minutes.
+        </div>
+
+        <div class="separator"></div>
+
+        <table>
+            <tr id="heading">
+                <th>All Time High Price</th>
+                <th>Date</th>
+                <th>Market</th>
+            </tr>
+            {all_time_high_prices_table}
+        </table>
+
+        <div class="separator"></div>
+
+        <div class="placeholder">
+            <div class="author">
+                By <a href="https://twitter.com/Fares_Alaboud" target="_blank">@Fares_Alaboud</a> &amp; <a href="https://twitter.com/musalbas" target="_blank">@musalbas</a>
+            </div>
+            <div class="donate">
+                Donate: 1DQRBzK8nPBiej5p1edCKSjAstjdnzq23c
+            </div>
+        </div>
+
+        <div class="separator"></div>
+
+    </body>
+
 </html>
