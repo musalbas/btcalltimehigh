@@ -45,7 +45,7 @@ class WebApp(object):
 
         # Template in the current all time high price and time
         out = out.replace("{all_time_high_price}",
-                          str(int(float(all_time_high_price))))
+                          "{0:.2f}".format(float(all_time_high_price)))
         out = out.replace("{all_time_high_symbol}", all_time_high_symbol)
         out = out.replace("{all_time_high_time}", all_time_high_time)
 
@@ -59,7 +59,7 @@ class WebApp(object):
             time_string = datetime.datetime.fromtimestamp(item[1])
             time_string = time_string.strftime(self.time_format)
             prices_table += "<tr>"
-            prices_table += "<td>$" + str(int(float(price))) + "</td>"
+            prices_table += "<td>$" + "{0:.2f}".format(float(price)) + "</td>"
             prices_table += "<td>" + time_string + "</td>"
             prices_table += "<td>" + symbol + "</td>"
             prices_table += "</tr>"
