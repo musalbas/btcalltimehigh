@@ -77,7 +77,7 @@ class PricePoller:
 
     data_filename: Path to a file where the Bitcoin all time high price data is
                    stored.
-    interval: Seconds to wait before each poll.
+    interval: Seconds to wait before each poll.pypi
 
     """
 
@@ -135,7 +135,12 @@ class PricePoller:
         high has been reached."""
         # Get markets data from bitcoincharts.com
         api_url = "http://api.bitcoincharts.com/v1/markets.json"
-        markets_data = json.load(urllib.urlopen(api_url))
+        print str(datetime.datetime.now()) + ":",
+        try:
+            markets_data = json.load(urllib.urlopen(api_url))
+            print "successfully downloaded latest Bitcoin price data."
+        except Exception, e:
+            print "could not download Bitcoin price data: " + str(e) + "."
 
         # Loop through all the USD markets and check if a new all time high
         # price has been reached, by looking at each market's highest trade
