@@ -77,7 +77,7 @@ class PricePoller:
 
     data_filename: Path to a file where the Bitcoin all time high price data is
                    stored.
-    interval: Seconds to wait before each poll.pypi
+    interval: Seconds to wait before each poll.
 
     """
 
