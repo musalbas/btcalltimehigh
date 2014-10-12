@@ -14,6 +14,7 @@ except ImportError:
 
 import math
 import os
+import sys
 import urllib
 
 
@@ -142,6 +143,8 @@ class PricePoller:
         except Exception, e:
             print "could not download Bitcoin price data: " + str(e) + "."
             return
+        finally:
+            sys.stdout.flush()
 
         # Loop through all the USD markets and check if a new all time high
         # price has been reached, by looking at each market's highest trade
